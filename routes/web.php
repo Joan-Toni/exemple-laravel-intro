@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Editor;
 use App\Http\Controllers\EditorController;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\AutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,35 @@ Route::group(
 
     }
 );
+
+
+
+
+Route::group(
+    ['prefix' => 'autors'],
+    function () {
+        // Llista tots els autors
+        Route::get('', [AutorController::class, 'index'])->name('autors.index');
+
+        // Mostra el formulari per crear un nou autor
+        Route::get('/crear', [AutorController::class, 'create'])->name('autors.create');
+
+        // Guarda un nou autor
+        Route::post('', [AutorController::class, 'store'])->name('autors.store');
+
+        // Mostra el formulari per editar un autor existent
+        Route::get('/{id}/editar', [AutorController::class, 'edit'])->name('autors.edit');
+
+        // Actualitza un autor
+        Route::put('/{id}', [AutorController::class, 'update'])->name('autors.update');
+
+        // Esborra un autor
+        Route::delete('/{id}', [AutorController::class, 'destroy'])->name('autors.destroy');
+    }
+);
+
+
+
 
 
 
